@@ -1,4 +1,6 @@
 <?php
+ini_set('session.cookie_samesite', 'None');
+ini_set('session.cookie_secure', '1');
 define('DB_HOST',    getenv('DB_HOST')    ?: 'localhost');
 define('DB_PORT',    getenv('DB_PORT')    ?: '3306');
 define('DB_NAME',    getenv('DB_NAME')    ?: 'studydrop');
@@ -20,7 +22,8 @@ define('ALLOWED_MIME_TYPES', [
 if (session_status() === PHP_SESSION_NONE) {
     session_start([
         'cookie_httponly' => true,
-        'cookie_samesite' => 'Strict',
+        'cookie_samesite' => 'None',
+        'cookie_secure'   => true,
         'use_strict_mode' => true,
     ]);
 }
