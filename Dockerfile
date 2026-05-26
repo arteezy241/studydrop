@@ -14,24 +14,29 @@ RUN apt-get update && apt-get install -y \
 # Enable rewrite
 RUN a2enmod rewrite
 
-# Remove default Apache files
-RUN rm -rf /var/www/html/*
+# Remove ALL default Apache pages
+RUN rm -rf /var/www/html/* && \
+    rm -f /etc/apache2/sites-enabled/000-default.conf
 
-# Copy project into correct folder
+# Copy project
 COPY . /var/www/html/
 
-# Uploads folder
+# Create virtual host config
+RUN echo '<VirtualHost *:80>\n\
+    DocumentRoot /var/www/html\n\
+    <Directory /var/www/html>\n\
+        AllowOverride All\n\
+        Require all granted\n\
+        DirectoryIndex index.php index.html\n\
+    </Directory>\n\
+</VirtualHost>' > /etc/apache2/sites-enabled/studydrop.conf
+
+# Uploads + permissions
 RUN mkdir -p /var/www/html/uploads && \
     chmod 755 /var/www/html/uploads && \
     chown -R www-data:www-data /var/www/html
 
-# Apache config
-RUN echo '<Directory /var/www/html>\n\
-    AllowOverride All\n\
-    Require all granted\n\
-</Directory>' >> /etc/apache2/apache2.conf
-
-# Suppress ServerName warning
+# Suppress warning
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 EXPOSE 80
