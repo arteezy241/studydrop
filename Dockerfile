@@ -14,11 +14,11 @@ RUN apt-get update && apt-get install -y \
 # Enable rewrite
 RUN a2enmod rewrite
 
-# Copy project
-COPY . /var/www/html/
+# Remove default Apache files
+RUN rm -rf /var/www/html/*
 
-# Remove default index
-RUN rm -f /var/www/html/index.html
+# Copy project into correct folder
+COPY . /var/www/html/
 
 # Uploads folder
 RUN mkdir -p /var/www/html/uploads && \
@@ -30,6 +30,9 @@ RUN echo '<Directory /var/www/html>\n\
     AllowOverride All\n\
     Require all granted\n\
 </Directory>' >> /etc/apache2/apache2.conf
+
+# Suppress ServerName warning
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 EXPOSE 80
 
