@@ -3,12 +3,16 @@ FROM php:8.2-apache
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql
 
-# Enable Apache mod_rewrite
-RUN a2enmod rewrite
+# Fix MPM conflict — remove all mpm configs and use prefork only
+RUN rm -f /etc/apache2/mods-enabled/mpm_*.load \
+           /etc/apache2/mods-enabled/mpm_*.conf && \
+    ln -s /etc/apache2/mods-available/mpm_prefork.load \
+          /etc/apache2/mods-enabled/mpm_prefork.load && \
+    ln -s /etc/apache2/mods-available/mpm_prefork.conf \
+          /etc/apache2/mods-enabled/mpm_prefork.conf
 
-# Disable conflicting MPM modules and enable prefork
-RUN a2dismod mpm_event mpm_worker 2>/dev/null || true && \
-    a2enmod mpm_prefork
+# Enable rewrite
+RUN a2enmod rewrite
 
 # Set working directory
 WORKDIR /var/www/html
@@ -16,12 +20,12 @@ WORKDIR /var/www/html
 # Copy project files
 COPY . .
 
-# Create uploads directory with proper permissions
+# Uploads folder
 RUN mkdir -p /var/www/html/uploads && \
     chmod 755 /var/www/html/uploads && \
     chown -R www-data:www-data /var/www/html
 
-# Apache config
+# Apache directory config
 RUN echo '<Directory /var/www/html>\n\
     AllowOverride All\n\
     Require all granted\n\
