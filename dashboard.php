@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/layout.php';
@@ -69,7 +70,7 @@ layout_start('Dashboard','dashboard');
   </div>
 
   <!-- Stat tiles -->
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:32px;">
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:32px;" class="stat-grid">
     <div class="stat-tile"><div class="lbl">Total downloads</div><div class="num"><?= number_format($stats['downloads']) ?></div></div>
     <div class="stat-tile"><div class="lbl">Total uploads</div><div class="num"><?= number_format($stats['uploads']) ?></div></div>
     <div class="stat-tile"><div class="lbl">Avg rating</div><div class="num"><?= $myRating['cnt']>0 ? number_format($myRating['avg'],1).' ★' : '—' ?></div></div>
@@ -77,7 +78,8 @@ layout_start('Dashboard','dashboard');
   </div>
 
   <!-- Main grid -->
-  <div style="display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:start;">
+  <div style="display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:start;" class="dash-grid">
+
 
     <!-- Left: tabs -->
     <div>
@@ -190,7 +192,7 @@ layout_start('Dashboard','dashboard');
     </div>
 
     <!-- Right: profile + activity -->
-    <aside style="display:flex;flex-direction:column;gap:18px;">
+    <aside style="display:flex;flex-direction:column;gap:18px;" class="dash-aside">
 
       <!-- Profile card -->
       <div class="card" style="padding:20px;display:flex;flex-direction:column;gap:14px;">

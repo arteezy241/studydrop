@@ -1,11 +1,4 @@
--- StudyDrop Database Schema
--- Run this once to set up all tables
 
-CREATE DATABASE IF NOT EXISTS studydrop
-  CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
-
-USE studydrop;
 
 -- -----------------------------------------------
 -- Schools

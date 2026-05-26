@@ -96,7 +96,7 @@ layout_start('Drop a reviewer','upload');
           <?php if (isset($errors['title'])): ?><span class="field-error"><?= e($errors['title']) ?></span><?php endif; ?>
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;" class="upload-cols">
           <div class="field">
             <label class="field-label" for="school_id">School</label>
             <select class="select" id="school_id" name="school_id">

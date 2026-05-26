@@ -26,11 +26,18 @@ RUN echo '<VirtualHost *:80>\n\
     </Directory>\n\
 </VirtualHost>' > /etc/apache2/sites-enabled/000-default.conf
 
-RUN mkdir -p /var/www/html/uploads \
-    && chmod 777 /var/www/html/uploads \
-    && chown -R www-data:www-data /var/www/html
+RUN mkdir -p /var/uploads \
+    && chmod 755 /var/uploads \
+    && chown -R www-data:www-data /var/uploads
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# Block direct access to uploads via .htaccess
+RUN echo 'Options -Indexes\n\
+<FilesMatch ".*">\n\
+    Order allow,deny\n\
+    Deny from all\n\
+</FilesMatch>' > /var/www/html/uploads/.htaccess
 
 EXPOSE 80
 CMD ["apache2ctl", "-D", "FOREGROUND"]

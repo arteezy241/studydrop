@@ -93,10 +93,10 @@ $features = [
 <body style="margin:0;min-height:100vh;display:flex;flex-direction:column;">
 <div class="app">
 
-<div style="flex:1;display:grid;grid-template-columns:1fr 1.05fr;min-height:100vh;">
+<div style="flex:1;display:grid;grid-template-columns:1fr 1.05fr;min-height:100vh;" class="auth-grid">
 
   <!-- LEFT: brand panel -->
-  <aside style="background:linear-gradient(180deg,var(--brand-blue-700) 0%,var(--brand-blue-800) 100%);color:white;padding:56px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;">
+  <aside style="background:linear-gradient(180deg,var(--brand-blue-700) 0%,var(--brand-blue-800) 100%);color:white;padding:56px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;" class="auth-left">
     <div style="position:absolute;top:-80px;right:-80px;width:280px;height:280px;border-radius:50%;background:var(--brand-yellow-300);opacity:.2;"></div>
     <div style="position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:var(--brand-yellow-300);opacity:.3;"></div>
 

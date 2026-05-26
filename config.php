@@ -10,7 +10,7 @@ define('DB_CHARSET', 'utf8mb4');
 
 define('APP_NAME',   'StudyDrop');
 define('APP_URL',    getenv('APP_URL')    ?: 'http://localhost/studydrop');
-define('UPLOAD_DIR', getenv('UPLOAD_DIR') ?: __DIR__ . '/uploads/');
+define('UPLOAD_DIR', getenv('UPLOAD_DIR') ?: '/var/uploads/');
 define('MAX_FILE_BYTES', 10 * 1024 * 1024);
 
 define('ALLOWED_MIME_TYPES', [

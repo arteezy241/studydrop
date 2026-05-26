@@ -80,7 +80,7 @@ layout_start(e($mat['title']),'search');
     <span style="color:var(--fg-1);font-weight:500;"><?= e(mb_substr($mat['title'],0,40)) ?>…</span>
   </div>
 
-  <div style="display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:start;">
+ <div style="display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:start;" class="detail-grid">
 
     <!-- LEFT -->
     <div>
@@ -247,7 +247,7 @@ layout_start(e($mat['title']),'search');
     </div>
 
     <!-- RIGHT: sticky panel -->
-    <aside style="position:sticky;top:90px;display:flex;flex-direction:column;gap:14px;">
+    <aside style="position:sticky;top:90px;display:flex;flex-direction:column;gap:14px;" class="detail-aside">
 
       <!-- Download card -->
       <div class="card" style="padding:20px;">

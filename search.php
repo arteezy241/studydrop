@@ -56,10 +56,10 @@ layout_start('Browse — StudyDrop','search');
     </div>
   </form>
 
-  <div style="display:grid;grid-template-columns:240px 1fr;gap:32px;align-items:start;">
+  <div style="display:grid;grid-template-columns:240px 1fr;gap:32px;align-items:start;" class="search-grid">
 
     <!-- SIDEBAR FILTERS -->
-    <aside style="position:sticky;top:90px;">
+    <aside style="position:sticky;top:90px;" class="search-sidebar">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
         <h3 style="font-family:var(--font-display);font-weight:700;font-size:16px;">Filters</h3>
         <?php if ($subj||$sch): ?>

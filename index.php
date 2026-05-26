@@ -1,6 +1,5 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
 
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/helpers.php';
@@ -43,7 +42,8 @@ layout_start('Pasahan ng reviewer, libre forever', 'browse');
 <!-- HERO -->
 <section style="background:linear-gradient(180deg,#EEF3FF 0%,#FBFCFD 100%);padding:64px 0 56px;">
   <div class="container">
-    <div style="display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;">
+    <div style="display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;" class="hero-grid">
+      
 
       <div>
         <div style="display:inline-flex;align-items:center;gap:8px;background:var(--brand-yellow-100);padding:6px 14px;border-radius:999px;margin-bottom:20px;">
@@ -65,14 +65,14 @@ layout_start('Pasahan ng reviewer, libre forever', 'browse');
         </div>
 
         <div style="display:flex;gap:24px;font-size:13px;color:var(--fg-3);">
-          <div><strong style="color:var(--fg-1);font-size:16px;font-family:var(--font-display);"><?= number_format(max($totalMats,24310)) ?></strong> &nbsp;reviewers</div>
-          <div><strong style="color:var(--fg-1);font-size:16px;font-family:var(--font-display);"><?= number_format(max($totalSubj,1420)) ?></strong> &nbsp;subjects</div>
-          <div><strong style="color:var(--fg-1);font-size:16px;font-family:var(--font-display);"><?= number_format(max($totalSch,87)) ?></strong> &nbsp;schools</div>
+          <div><strong style="color:var(--fg-1);font-size:16px;font-family:var(--font-display);"><?= number_format($totalMats) ?></strong> &nbsp;reviewers</div>
+          <div><strong style="color:var(--fg-1);font-size:16px;font-family:var(--font-display);"><?= number_format($totalSubj) ?></strong> &nbsp;subjects</div>
+          <div><strong style="color:var(--fg-1);font-size:16px;font-family:var(--font-display);"><?= number_format($totalSch) ?></strong> &nbsp;schools</div>
         </div>
       </div>
 
       <!-- Illustration -->
-      <div style="display:flex;justify-content:center;">
+      <div style="display:flex;justify-content:center;" class="hero-illustration">
         <?php if (file_exists(__DIR__.'/assets/illustration-hero.svg')): ?>
           <img src="assets/illustration-hero.svg" alt="" style="width:100%;max-width:460px;height:auto;"/>
         <?php else: ?>
@@ -161,7 +161,7 @@ layout_start('Pasahan ng reviewer, libre forever', 'browse');
       <a href="upload.php" class="btn btn-accent"><?= icon('upload',14,2) ?> Upload yours</a>
     </div>
     <?php else: ?>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;" class="rv-grid-4">
       <?php foreach ($recent as $i => $mat): echo reviewer_card($mat, $i); endforeach; ?>
     </div>
     <?php endif; ?>
@@ -171,7 +171,7 @@ layout_start('Pasahan ng reviewer, libre forever', 'browse');
 <!-- PROMO BAND -->
 <section style="background:var(--brand-blue-700);color:white;padding:56px 0;">
   <div class="container">
-    <div style="display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;">
+    <div style="display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;" class="promo-grid">
       <div>
         <div style="font-size:12px;font-weight:600;letter-spacing:.08em;color:var(--brand-yellow-300);text-transform:uppercase;margin-bottom:12px;">Help your batchmates</div>
         <h3 style="font-family:var(--font-display);font-weight:700;font-size:32px;letter-spacing:-0.02em;line-height:1.15;max-width:640px;">
