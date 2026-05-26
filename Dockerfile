@@ -1,35 +1,36 @@
-FROM php:8.2-apache
+FROM ubuntu:22.04
 
-# Install PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql
+ENV DEBIAN_FRONTEND=noninteractive
 
-# Fix MPM conflict — remove all mpm configs and use prefork only
-RUN rm -f /etc/apache2/mods-enabled/mpm_*.load \
-           /etc/apache2/mods-enabled/mpm_*.conf && \
-    ln -s /etc/apache2/mods-available/mpm_prefork.load \
-          /etc/apache2/mods-enabled/mpm_prefork.load && \
-    ln -s /etc/apache2/mods-available/mpm_prefork.conf \
-          /etc/apache2/mods-enabled/mpm_prefork.conf
+# Install Apache + PHP
+RUN apt-get update && apt-get install -y \
+    apache2 \
+    php8.1 \
+    php8.1-mysql \
+    php8.1-pdo \
+    libapache2-mod-php8.1 \
+    && rm -rf /var/lib/apt/lists/*
 
 # Enable rewrite
 RUN a2enmod rewrite
 
-# Set working directory
-WORKDIR /var/www/html
+# Copy project
+COPY . /var/www/html/
 
-# Copy project files
-COPY . .
+# Remove default index
+RUN rm -f /var/www/html/index.html
 
 # Uploads folder
 RUN mkdir -p /var/www/html/uploads && \
     chmod 755 /var/www/html/uploads && \
     chown -R www-data:www-data /var/www/html
 
-# Apache directory config
+# Apache config
 RUN echo '<Directory /var/www/html>\n\
     AllowOverride All\n\
     Require all granted\n\
-</Directory>' > /etc/apache2/conf-available/studydrop.conf && \
-    a2enconf studydrop
+</Directory>' >> /etc/apache2/apache2.conf
 
 EXPOSE 80
+
+CMD ["apache2ctl", "-D", "FOREGROUND"]
