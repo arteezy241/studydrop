@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 80" fill="none">
+  
+  <g>
+    <rect x="10" y="10" width="80" height="60" rx="12" fill="#DCE6FF"></rect>
+    <text x="50" y="46" text-anchor="middle" font-family="&#39;Bricolage Grotesque&#39;, sans-serif" font-weight="700" font-size="22" fill="#1632AC">∑</text>
+  </g>
+  <g>
+    <rect x="110" y="10" width="80" height="60" rx="12" fill="#FFF3C2"></rect>
+    <text x="150" y="46" text-anchor="middle" font-family="&#39;Bricolage Grotesque&#39;, sans-serif" font-weight="700" font-size="22" fill="#7A5C00">⚛</text>
+  </g>
+  <g>
+    <rect x="210" y="10" width="80" height="60" rx="12" fill="#E8F8EF"></rect>
+    <text x="250" y="46" text-anchor="middle" font-family="&#39;Bricolage Grotesque&#39;, sans-serif" font-weight="700" font-size="22" fill="#156D43">¶</text>
+  </g>
+  <g>
+    <rect x="310" y="10" width="80" height="60" rx="12" fill="#FDECEC"></rect>
+    <text x="350" y="46" text-anchor="middle" font-family="&#39;Bricolage Grotesque&#39;, sans-serif" font-weight="700" font-size="22" fill="#962020">§</text>
+  </g>
+</svg>

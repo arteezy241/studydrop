@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" fill="none">
+  
+  <g transform="translate(80, 30)">
+    <rect width="160" height="160" rx="14" fill="#ECEFF4"></rect>
+    <rect x="20" y="28" width="80" height="10" rx="5" fill="#C4CBD7"></rect>
+    <rect x="20" y="50" width="120" height="6" rx="3" fill="#DDE2EB"></rect>
+    <rect x="20" y="64" width="100" height="6" rx="3" fill="#DDE2EB"></rect>
+    <rect x="20" y="78" width="110" height="6" rx="3" fill="#DDE2EB"></rect>
+    <rect x="20" y="100" width="60" height="30" rx="6" fill="#DDE2EB"></rect>
+  </g>
+  
+  <g transform="translate(180, 130)">
+    <circle r="34" fill="#FFFFFF" stroke="#2C58F2" stroke-width="6"></circle>
+    <circle r="34" fill="#DCE6FF" opacity="0.4"></circle>
+    <path d="M24 24 L48 48" stroke="#2C58F2" stroke-width="8" stroke-linecap="round"></path>
+  </g>
+  
+  <circle cx="98" cy="42" r="6" fill="#FFD43F"></circle>
+</svg>
