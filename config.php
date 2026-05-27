@@ -10,13 +10,17 @@ define('DB_CHARSET', 'utf8mb4');
 
 define('APP_NAME',   'StudyDrop');
 define('APP_URL',    getenv('APP_URL')    ?: 'http://localhost/studydrop');
-define('UPLOAD_DIR', getenv('UPLOAD_DIR') ?: '/var/uploads/');
+// ✅ FIX 3: Use a project-relative path the web process can actually write to.
+//    Set the UPLOAD_DIR env var in production to override (e.g. /srv/studydrop/uploads/).
+define('UPLOAD_DIR', getenv('UPLOAD_DIR') ?: __DIR__ . '/uploads/');
 define('MAX_FILE_BYTES', 10 * 1024 * 1024);
 
+// ✅ FIX 2: Added DOCX MIME type
 define('ALLOWED_MIME_TYPES', [
-    'application/pdf' => 'pdf',
-    'image/png'       => 'png',
-    'image/jpeg'      => 'jpg',
+    'application/pdf'      => 'pdf',
+    'image/png'            => 'png',
+    'image/jpeg'           => 'jpg',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx',
 ]);
 
 if (session_status() === PHP_SESSION_NONE) {

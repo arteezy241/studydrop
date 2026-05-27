@@ -58,14 +58,12 @@ layout_start('Drop a reviewer','upload');
   <form method="POST" enctype="multipart/form-data" novalidate>
     <?= csrf_field() ?>
 
-    <!-- Drop zone -->
-    <label for="material"
+   <!-- Drop zone -->
+    <label for="material" id="drop-zone"
            style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
                   border:2px dashed var(--border-strong);border-radius:20px;padding:48px;
                   text-align:center;background:var(--bg-elevated);cursor:pointer;
-                  transition:all 180ms var(--ease-out);margin-bottom:32px;"
-           onmouseover="this.style.borderColor='var(--brand-blue-500)';this.style.background='var(--brand-blue-50)'"
-           onmouseout="this.style.borderColor='var(--border-strong)';this.style.background='var(--bg-elevated)'">
+                  transition:all 180ms var(--ease-out);margin-bottom:32px;">
       <?php if (file_exists(__DIR__.'/assets/illustration-upload.svg')): ?>
         <img src="assets/illustration-upload.svg" alt="" style="width:180px;height:auto;margin-bottom:4px;"/>
       <?php else: ?>
@@ -75,9 +73,13 @@ layout_start('Drop a reviewer','upload');
       <?php endif; ?>
       <div>
         <div style="font-family:var(--font-display);font-weight:700;font-size:20px;color:var(--fg-1);">Drop a file, or click to choose</div>
-        <div style="font-size:13px;color:var(--fg-3);margin-top:6px;font-family:var(--font-mono);">PDF · PNG · JPEG · up to 10 MB</div>
+        <!-- ✅ FIX 2: updated format hint to include DOCX -->
+        <div style="font-size:13px;color:var(--fg-3);margin-top:6px;font-family:var(--font-mono);">PDF · DOCX · PNG · JPEG · up to 10 MB</div>
       </div>
-      <input type="file" id="material" name="material" accept=".pdf,.png,.jpg,.jpeg" style="display:none;" onchange="showFile(this)"/>
+      <!-- ✅ FIX 2: added .docx to accept attribute -->
+      <input type="file" id="material" name="material"
+             accept=".pdf,.docx,.png,.jpg,.jpeg"
+             style="display:none;" onchange="showFile(this)"/>
     </label>
     <p id="file-name" style="font-size:13px;color:var(--brand-blue-600);font-weight:600;margin-top:-20px;margin-bottom:20px;"></p>
     <?php if (isset($errors['material'])): ?><p class="field-error" style="margin-bottom:16px;"><?= e($errors['material']) ?></p><?php endif; ?>
@@ -167,13 +169,62 @@ layout_start('Drop a reviewer','upload');
 </main>
 
 <script>
-function showFile(input) {
-  const el = document.getElementById('file-name');
-  if (input.files && input.files[0]) {
-    const f = input.files[0];
-    el.textContent = '✓ ' + f.name + ' (' + (f.size/1048576).toFixed(1) + ' MB)';
+// ✅ FIX 1: Full drag-and-drop + click-to-select support
+(function () {
+  const zone  = document.getElementById('drop-zone');
+  const input = document.getElementById('material');
+  const label = document.getElementById('file-name');
+
+  // Drag visual feedback
+  ['dragenter', 'dragover'].forEach(function (evt) {
+    zone.addEventListener(evt, function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      zone.style.borderColor = 'var(--brand-blue-500)';
+      zone.style.background  = 'var(--brand-blue-50)';
+    });
+  });
+
+  ['dragleave', 'dragend'].forEach(function (evt) {
+    zone.addEventListener(evt, function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      zone.style.borderColor = 'var(--border-strong)';
+      zone.style.background  = 'var(--bg-elevated)';
+    });
+  });
+
+  // Drop: assign file to the real input so the form submits it
+  zone.addEventListener('drop', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    zone.style.borderColor = 'var(--border-strong)';
+    zone.style.background  = 'var(--bg-elevated)';
+
+    var files = e.dataTransfer.files;
+    if (!files || files.length === 0) return;
+
+    // Assign to input via DataTransfer (supported in all modern browsers)
+    var dt = new DataTransfer();
+    dt.items.add(files[0]);
+    input.files = dt.files;
+
+    showFile(input);
+  });
+
+  // Click-to-open (the <label for="material"> already does this,
+  // but keeping an explicit handler avoids double-fire on the label itself)
+  function showFile(inp) {
+    if (inp.files && inp.files[0]) {
+      var f = inp.files[0];
+      label.textContent = '✓ ' + f.name + ' (' + (f.size / 1048576).toFixed(1) + ' MB)';
+    }
   }
-}
+
+  // Expose to inline onchange="showFile(this)"
+  window.showFile = showFile;
+})();
+</script>
 </script>
 
 <?php layout_end(); ?>
