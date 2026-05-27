@@ -13,7 +13,7 @@ define('APP_URL',    getenv('APP_URL')    ?: 'http://localhost/studydrop');
 // ✅ FIX 3: Use a project-relative path the web process can actually write to.
 //    Set the UPLOAD_DIR env var in production to override (e.g. /srv/studydrop/uploads/).
 define('UPLOAD_DIR', getenv('UPLOAD_DIR') ?: __DIR__ . '/uploads/');
-define('MAX_FILE_BYTES', 10 * 1024 * 1024);
+if (!is_dir(UPLOAD_DIR)) mkdir(UPLOAD_DIR, 0755, true);
 
 // ✅ FIX 2: Added DOCX MIME type
 define('ALLOWED_MIME_TYPES', [
