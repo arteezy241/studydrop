@@ -14,6 +14,7 @@ define('APP_URL',    getenv('APP_URL')    ?: 'http://localhost/studydrop');
 //    Set the UPLOAD_DIR env var in production to override (e.g. /srv/studydrop/uploads/).
 define('UPLOAD_DIR', getenv('UPLOAD_DIR') ?: __DIR__ . '/uploads/');
 if (!is_dir(UPLOAD_DIR)) mkdir(UPLOAD_DIR, 0755, true);
+define('MAX_FILE_BYTES', 10 * 1024 * 1024);
 
 // ✅ FIX 2: Added DOCX MIME type
 define('ALLOWED_MIME_TYPES', [
