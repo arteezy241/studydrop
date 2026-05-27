@@ -26,9 +26,9 @@ RUN echo '<VirtualHost *:80>\n\
     </Directory>\n\
 </VirtualHost>' > /etc/apache2/sites-enabled/000-default.conf
 
-RUN mkdir -p /var/uploads \
-    && chmod 755 /var/uploads \
-    && chown -R www-data:www-data /var/uploads
+RUN mkdir -p /var/www/html/uploads \
+    && chmod 777 /var/www/html/uploads \
+    && chown -R www-data:www-data /var/www/html/uploads
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
