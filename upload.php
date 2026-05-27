@@ -225,6 +225,6 @@ layout_start('Drop a reviewer','upload');
   window.showFile = showFile;
 })();
 </script>
-</script>
+
 
 <?php layout_end(); ?>
